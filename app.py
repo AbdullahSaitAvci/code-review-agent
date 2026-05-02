@@ -1,6 +1,7 @@
 import streamlit as st
 
 from agent.core import review_code
+from agent.memory import add_assistant_message, new_session
 
 st.set_page_config(
     page_title="Code Review Agent",
@@ -11,6 +12,8 @@ st.set_page_config(
 # ── Session state defaults ──────────────────────────────────────────────────
 if "last_result" not in st.session_state:
     st.session_state.last_result = None
+if "messages" not in st.session_state:
+    st.session_state.messages = new_session()
 
 # ── Sidebar ─────────────────────────────────────────────────────────────────
 with st.sidebar:
@@ -47,11 +50,13 @@ st.header("İnceleme Sonucu")
 if run_button:
     code = code_input.strip()
     if not code:
-        st.warning("Lütfen önce bir .py dosyası yükleyin veya kod girin.")
+        st.warning("Lütfen kod girin.")
     else:
-        with st.spinner("Agent çalışıyor…"):
+        with st.spinner("Agent araçları çalıştırıyor..."):
             result = review_code(code)
         st.session_state.last_result = result
+        if result.get("success"):
+            add_assistant_message(st.session_state.messages, result["review"])
 
 result = st.session_state.last_result
 
