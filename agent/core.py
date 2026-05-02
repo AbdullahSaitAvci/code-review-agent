@@ -21,7 +21,6 @@ from agent.tools import (
 
 load_dotenv()
 
-_MODEL = "claude-sonnet-4-6"
 _MAX_TOKENS = 16000
 _MAX_ITERATIONS = 20
 
@@ -54,7 +53,7 @@ def _dispatch_tool(name: str, tool_input: dict) -> str:
     return json.dumps(result, ensure_ascii=False)
 
 
-def review_code(code: str) -> dict:
+def review_code(code: str, model: str = "claude-sonnet-4-6") -> dict:
     """Analyse *code* with an agentic loop and return a structured review dict.
 
     Returns:
@@ -88,7 +87,7 @@ def review_code(code: str) -> dict:
 
     for _ in range(_MAX_ITERATIONS):
         response = client.messages.create(
-            model=_MODEL,
+            model=model,
             max_tokens=_MAX_TOKENS,
             system=[
                 {

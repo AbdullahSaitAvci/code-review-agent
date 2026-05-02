@@ -5,7 +5,9 @@ import streamlit as st
 from agent.memory import add_assistant_message, new_session
 
 _MODEL_CONFIGS: dict[str, dict] = {
-    "Claude (Sonnet 4.6)":          {"module": "agent.core"},
+    "Claude (Sonnet 4.6)":          {"module": "agent.core", "model": "claude-sonnet-4-6"},
+    "Claude Haiku 4.5":             {"module": "agent.core", "model": "claude-haiku-4-5-20251001"},
+    "Claude Sonnet 4.5":            {"module": "agent.core", "model": "claude-sonnet-4-5-20250514"},
     "Groq (Llama 3.3 70B)":         {"module": "agent.groq_core"},
     "NVIDIA Nemotron Super (Free)": {"module": "agent.openrouter_core", "model": "nvidia/nemotron-3-super-120b-a12b:free"},
     "OpenRouter Free (Auto)":         {"module": "agent.openrouter_core", "model": "openrouter/free"},
