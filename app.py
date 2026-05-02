@@ -5,22 +5,33 @@ import streamlit as st
 from agent.memory import add_assistant_message, new_session
 
 _MODEL_CONFIGS: dict[str, dict] = {
-    "Claude (Sonnet 4.6)":          {"module": "agent.core", "model": "claude-sonnet-4-6"},
-    "Claude Haiku 4.5":             {"module": "agent.core", "model": "claude-haiku-4-5-20251001"},
-    "Claude Sonnet 4.5":            {"module": "agent.core", "model": "claude-sonnet-4-5-20250514"},
-    "Groq (Llama 3.3 70B)":         {"module": "agent.groq_core"},
-    "NVIDIA Nemotron Super (Free)": {"module": "agent.openrouter_core", "model": "nvidia/nemotron-3-super-120b-a12b:free"},
-    "OpenRouter Free (Auto)":         {"module": "agent.openrouter_core", "model": "openrouter/free"},
-    "Gemma 4 31B (Free)":             {"module": "agent.openrouter_core", "model": "google/gemma-4-31b-it:free"},
+    "Claude (Sonnet 4.6)":            {"module": "agent.core",            "model": "claude-sonnet-4-6"},
+    "Claude Sonnet 4.5":              {"module": "agent.core",            "model": "claude-sonnet-4-5-20250514"},
+    "Claude Haiku 4.5":               {"module": "agent.core",            "model": "claude-haiku-4-5-20251001"},
+    "Groq (Llama 3.3 70B)":           {"module": "agent.groq_core"},
+    "NVIDIA Nemotron Super (Free)":   {"module": "agent.openrouter_core", "model": "nvidia/nemotron-3-super-120b-a12b:free"},
     "NVIDIA Nemotron Nano 30B (Free)":{"module": "agent.openrouter_core", "model": "nvidia/nemotron-3-nano-30b-a3b:free"},
-    "Llama 3.3 70B (Free)":           {"module": "agent.openrouter_core", "model": "meta-llama/llama-3.3-70b-instruct:free"},
     "GPT-OSS 120B (Free)":            {"module": "agent.openrouter_core", "model": "openai/gpt-oss-120b:free"},
+    "Gemma 4 31B (Free)":             {"module": "agent.openrouter_core", "model": "google/gemma-4-31b-it:free"},
+    "Llama 3.3 70B (Free)":           {"module": "agent.openrouter_core", "model": "meta-llama/llama-3.3-70b-instruct:free"},
+    "OpenRouter Free (Auto)":         {"module": "agent.openrouter_core", "model": "openrouter/free"},
 }
 
 st.set_page_config(
     page_title="Code Review Agent",
     page_icon="🔍",
     layout="wide",
+    initial_sidebar_state="expanded",
+)
+
+st.markdown(
+    """
+    <style>
+    [data-testid="stSidebar"] { min-width: 320px; max-width: 320px; }
+    [data-testid="stSidebar"] .stSelectbox { width: 100% !important; }
+    </style>
+    """,
+    unsafe_allow_html=True,
 )
 
 # ── Session state defaults ──────────────────────────────────────────────────
@@ -38,8 +49,8 @@ with st.sidebar:
     )
     st.divider()
 
-    selected_model = st.radio(
-        "Model",
+    selected_model = st.selectbox(
+        "Model Seç",
         options=list(_MODEL_CONFIGS.keys()),
         index=0,
     )
