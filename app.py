@@ -8,7 +8,14 @@ _MODEL_CONFIGS: dict[str, dict] = {
     "Claude (Sonnet 4.6)":          {"module": "agent.core"},
     "Groq (Llama 3.3 70B)":         {"module": "agent.groq_core"},
     "NVIDIA Nemotron Super (Free)": {"module": "agent.openrouter_core", "model": "nvidia/nemotron-3-super-120b-a12b:free"},
-    "OpenRouter Free (Auto)":       {"module": "agent.openrouter_core", "model": "openrouter/free"},
+    "OpenRouter Free (Auto)":         {"module": "agent.openrouter_core", "model": "openrouter/free"},
+    "Gemma 4 31B (Free)":             {"module": "agent.openrouter_core", "model": "google/gemma-4-31b-it:free"},
+    "Qwen3 235B (Free)":              {"module": "agent.openrouter_core", "model": "qwen/qwen3-235b-a22b:free"},
+    "NVIDIA Nemotron Nano 30B (Free)":{"module": "agent.openrouter_core", "model": "nvidia/nemotron-3-nano-30b-a3b:free"},
+    "Llama 3.3 70B (Free)":           {"module": "agent.openrouter_core", "model": "meta-llama/llama-3.3-70b-instruct:free"},
+    "GPT-OSS 120B (Free)":            {"module": "agent.openrouter_core", "model": "openai/gpt-oss-120b:free"},
+    "Hermes 3 405B (Free)":           {"module": "agent.openrouter_core", "model": "nousresearch/hermes-3-llama-3.1-405b:free"},
+    "Gemma 3 27B (Free)":             {"module": "agent.openrouter_core", "model": "google/gemma-3-27b-it:free"},
 }
 
 st.set_page_config(
