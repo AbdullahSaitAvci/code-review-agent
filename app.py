@@ -1,7 +1,15 @@
+import importlib
+
 import streamlit as st
 
-from agent.core import review_code
 from agent.memory import add_assistant_message, new_session
+
+_MODEL_CONFIGS: dict[str, dict] = {
+    "Claude (Sonnet 4.6)":  {"module": "agent.core"},
+    "Groq (Llama 3.3 70B)": {"module": "agent.groq_core"},
+    "DeepSeek R1 (Free)":   {"module": "agent.openrouter_core", "model": "deepseek/deepseek-r1:free"},
+    "Qwen 3 30B (Free)":    {"module": "agent.openrouter_core", "model": "qwen/qwen3-30b-a3b:free"},
+}
 
 st.set_page_config(
     page_title="Code Review Agent",
@@ -22,6 +30,14 @@ with st.sidebar:
         "Python dosyalarını pylint, flake8 ve AST analiziyle inceleyen "
         "ve Claude API aracılığıyla pedagojik geri bildirim sunan AI agent."
     )
+    st.divider()
+
+    selected_model = st.radio(
+        "Model",
+        options=list(_MODEL_CONFIGS.keys()),
+        index=0,
+    )
+
     st.divider()
 
     uploaded_file = st.file_uploader(
@@ -52,8 +68,11 @@ if run_button:
     if not code:
         st.warning("Lütfen kod girin.")
     else:
+        cfg = _MODEL_CONFIGS[selected_model]
+        review_code = importlib.import_module(cfg["module"]).review_code
+        kwargs = {"model": cfg["model"]} if "model" in cfg else {}
         with st.spinner("Agent araçları çalıştırıyor..."):
-            result = review_code(code)
+            result = review_code(code, **kwargs)
         st.session_state.last_result = result
         if result.get("success"):
             add_assistant_message(st.session_state.messages, result["review"])
