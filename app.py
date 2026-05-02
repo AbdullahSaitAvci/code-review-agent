@@ -5,10 +5,10 @@ import streamlit as st
 from agent.memory import add_assistant_message, new_session
 
 _MODEL_CONFIGS: dict[str, dict] = {
-    "Claude (Sonnet 4.6)":  {"module": "agent.core"},
-    "Groq (Llama 3.3 70B)": {"module": "agent.groq_core"},
-    "DeepSeek R1 (Free)":   {"module": "agent.openrouter_core", "model": "deepseek/deepseek-r1:free"},
-    "Qwen 3 30B (Free)":    {"module": "agent.openrouter_core", "model": "qwen/qwen3-30b-a3b:free"},
+    "Claude (Sonnet 4.6)":          {"module": "agent.core"},
+    "Groq (Llama 3.3 70B)":         {"module": "agent.groq_core"},
+    "NVIDIA Nemotron Super (Free)": {"module": "agent.openrouter_core", "model": "nvidia/nemotron-3-super-120b-a12b:free"},
+    "OpenRouter Free (Auto)":       {"module": "agent.openrouter_core", "model": "openrouter/free"},
 }
 
 st.set_page_config(

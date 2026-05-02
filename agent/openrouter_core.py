@@ -68,7 +68,7 @@ def _dispatch_tool(name: str, arguments_json: str) -> str:
 
 def review_code(
     code: str,
-    model: str = "deepseek/deepseek-r1:free",
+    model: str = "deepseek/deepseek-r1-0528:free",
 ) -> dict:
     """Run an agentic loop with the given OpenRouter model and return a review dict.
 
