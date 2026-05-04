@@ -108,6 +108,9 @@ def review_code(
         except Exception as exc:  # noqa: BLE001
             return {"success": False, "error": str(exc), "tools_used": tools_used}
 
+        if not response or not response.choices:
+            return {"success": False, "error": "Model boş yanıt döndürdü.", "tools_used": tools_used}
+
         choice = response.choices[0]
         finish_reason = choice.finish_reason
 
