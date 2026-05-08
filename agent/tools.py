@@ -50,15 +50,21 @@ RUN_STATIC_ANALYSIS_SCHEMA = {
     "name": "run_static_analysis",
     "description": (
         "Runs pylint and flake8 on a Python code string and returns structured "
-        "findings (line, column, code, message) from both tools."
+        "findings (line, column, code, message) from both tools. "
+        "For non-Python languages returns an empty result with a note."
     ),
     "input_schema": {
         "type": "object",
         "properties": {
             "code": {
                 "type": "string",
-                "description": "The Python source code to analyse.",
-            }
+                "description": "The source code to analyse.",
+            },
+            "language": {
+                "type": "string",
+                "description": "Programming language of the code (python, javascript, java, etc.)",
+                "default": "python",
+            },
         },
         "required": ["code"],
     },
@@ -132,10 +138,20 @@ def _run_flake8(path: str) -> list[dict]:
     return issues
 
 
-def run_static_analysis(code: str) -> dict:
+def run_static_analysis(code: str, language: str = "python") -> dict:
     """Write *code* to a temp file, run pylint + flake8, return combined findings."""
     if not code or not code.strip():
         return {"success": False, "error": "Empty code string."}
+
+    if language.lower() != "python":
+        return {
+            "success": True,
+            "pylint": [],
+            "flake8": [],
+            "total_issues": 0,
+            "summary": {"pylint_count": 0, "flake8_count": 0},
+            "note": "Statik analiz sadece Python için destekleniyor. Claude kendi analizi yapacak.",
+        }
 
     with tempfile.NamedTemporaryFile(
         mode="w", suffix=".py", encoding="utf-8", delete=False

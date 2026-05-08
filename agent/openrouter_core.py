@@ -69,6 +69,7 @@ def _dispatch_tool(name: str, arguments_json: str) -> str:
 def review_code(
     code: str,
     model: str = "deepseek/deepseek-r1-0528:free",
+    language: str = "python",
 ) -> dict:
     """Run an agentic loop with the given OpenRouter model and return a review dict.
 
@@ -89,8 +90,8 @@ def review_code(
         {
             "role": "user",
             "content": (
-                "Lütfen aşağıdaki Python kodunu incele:\n\n"
-                f"```python\n{code}\n```"
+                f"Lütfen aşağıdaki {language} kodunu incele:\n\n"
+                f"```{language}\n{code}\n```"
             ),
         },
     ]

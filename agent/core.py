@@ -53,7 +53,7 @@ def _dispatch_tool(name: str, tool_input: dict) -> str:
     return json.dumps(result, ensure_ascii=False)
 
 
-def review_code(code: str, model: str = "claude-sonnet-4-6") -> dict:
+def review_code(code: str, model: str = "claude-sonnet-4-6", language: str = "python") -> dict:
     """Analyse *code* with an agentic loop and return a structured review dict.
 
     Returns:
@@ -77,8 +77,8 @@ def review_code(code: str, model: str = "claude-sonnet-4-6") -> dict:
         {
             "role": "user",
             "content": (
-                "Lütfen aşağıdaki Python kodunu incele:\n\n"
-                f"```python\n{code}\n```"
+                f"Lütfen aşağıdaki {language} kodunu incele:\n\n"
+                f"```{language}\n{code}\n```"
             ),
         }
     ]

@@ -68,7 +68,7 @@ def _dispatch_tool(name: str, arguments_json: str) -> str:
     return json.dumps(result, ensure_ascii=False)
 
 
-def review_code(code: str) -> dict:
+def review_code(code: str, language: str = "python") -> dict:
     """Run an agentic loop with Groq Llama and return a structured review dict.
 
     Returns the same shape as agent.core.review_code:
@@ -88,8 +88,8 @@ def review_code(code: str) -> dict:
         {
             "role": "user",
             "content": (
-                "Lütfen aşağıdaki Python kodunu incele:\n\n"
-                f"```python\n{code}\n```"
+                f"Lütfen aşağıdaki {language} kodunu incele:\n\n"
+                f"```{language}\n{code}\n```"
             ),
         },
     ]
