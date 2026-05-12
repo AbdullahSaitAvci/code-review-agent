@@ -100,6 +100,10 @@ st.markdown(
         white-space: nowrap;
     }
 
+    section[data-testid="stSidebar"] > div:first-child { padding-top: 0; }
+    button[data-testid="baseButton-headerNoPadding"] { display: none !important; }
+    [data-testid="collapsedControl"] { display: none !important; }
+
     </style>
     """,
     unsafe_allow_html=True,
