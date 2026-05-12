@@ -5,16 +5,14 @@ import streamlit as st
 from agent.memory import add_assistant_message, new_session
 
 _MODEL_CONFIGS: dict[str, dict] = {
-    "Claude (Sonnet 4.6)":              {"module": "agent.core",            "model": "claude-sonnet-4-6",                       "free": False},
+    "Claude Sonnet 4.6":                {"module": "agent.core",            "model": "claude-sonnet-4-6",                       "free": False},
     "Claude Sonnet 4.5":                {"module": "agent.core",            "model": "claude-sonnet-4-5-20250514",              "free": False},
     "Claude Haiku 4.5":                 {"module": "agent.core",            "model": "claude-haiku-4-5-20251001",               "free": False},
     "NVIDIA Nemotron Super (Free)":     {"module": "agent.openrouter_core", "model": "nvidia/nemotron-3-super-120b-a12b:free",  "free": True},
     "GPT-OSS 120B (Free)":              {"module": "agent.openrouter_core", "model": "openai/gpt-oss-120b:free",               "free": True},
-    "NVIDIA Nemotron Nano 30B (Free)":  {"module": "agent.openrouter_core", "model": "nvidia/nemotron-3-nano-30b-a3b:free",    "free": True},
     "Gemma 4 31B (Free)":               {"module": "agent.openrouter_core", "model": "google/gemma-4-31b-it:free",             "free": True},
     "Llama 3.3 70B (Free)":             {"module": "agent.openrouter_core", "model": "meta-llama/llama-3.3-70b-instruct:free", "free": True},
     "OpenRouter Free (Auto)":           {"module": "agent.openrouter_core", "model": "openrouter/free",                        "free": True},
-    "Groq (Llama 3.3 70B)":             {"module": "agent.groq_core",                                                           "free": True},
 }
 
 _PROVIDER_META: dict[str, dict] = {
@@ -197,7 +195,7 @@ with st.sidebar:
         "Ya da kodu buraya yapıştır",
         value=default_code,
         height=350,
-        placeholder="# Python kodunu buraya yapıştırın...",
+        placeholder="# Kodunuzu buraya yapıştırın (Python, JavaScript, Java, C++ ...)",
     )
 
     st.divider()

@@ -21,7 +21,6 @@ from agent.tools import (
 
 load_dotenv()
 
-_MAX_TOKENS = 16000
 _MAX_ITERATIONS = 20
 
 _TOOLS: list[dict] = [
@@ -88,7 +87,7 @@ def review_code(code: str, model: str = "claude-sonnet-4-6", language: str = "py
     for _ in range(_MAX_ITERATIONS):
         response = client.messages.create(
             model=model,
-            max_tokens=_MAX_TOKENS,
+            max_tokens=16000,
             system=[
                 {
                     "type": "text",

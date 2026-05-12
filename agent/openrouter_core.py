@@ -105,6 +105,7 @@ def review_code(
                 messages=messages,
                 tools=_TOOLS,
                 tool_choice="auto",
+                max_tokens=16000,
             )
         except Exception as exc:  # noqa: BLE001
             return {"success": False, "error": str(exc), "tools_used": tools_used}
