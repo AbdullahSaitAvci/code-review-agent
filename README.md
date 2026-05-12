@@ -1,15 +1,28 @@
 # Code Review Agent
 
-Python dosyalarını gerçek statik analiz araçlarıyla inceleyen ve Claude API'nin **tool use** özelliği aracılığıyla pedagojik geri bildirim sunan AI agent uygulaması.
+Çok dilli kod dosyalarını gerçek statik analiz araçlarıyla inceleyen ve Claude API'nin **tool use** özelliği aracılığıyla pedagojik geri bildirim sunan AI agent uygulaması.
 
 ## Özellikler
 
-- `.py` dosyası yükleme veya kodu doğrudan yapıştırma
+- Kod dosyası yükleme veya kodu doğrudan yapıştırma
+- **Çok dilli destek** — Python, JavaScript, TypeScript, Java, C++, Go, Ruby
 - **pylint** ve **flake8** ile otomatik statik analiz
 - **AST** tabanlı karmaşıklık ölçümü (fonksiyon uzunluğu, iç içe geçme derinliği)
 - Oturumlar arası kalıcı kullanıcı profili — tekrar eden hatalara odaklanır
 - Streamlit tabanlı sade web arayüzü
 - Native Anthropic SDK tool use döngüsü (wrapper kütüphane yok)
+
+## Desteklenen Diller
+
+| Dil | Uzantı |
+|-----|--------|
+| Python | `.py` |
+| JavaScript | `.js` |
+| TypeScript | `.ts` |
+| Java | `.java` |
+| C++ | `.cpp`, `.cc`, `.h` |
+| Go | `.go` |
+| Ruby | `.rb` |
 
 ## Kurulum
 
@@ -44,11 +57,14 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-`.env` dosyasını aç ve API anahtarını gir:
+`.env` dosyasını aç ve API anahtarlarını gir:
 
 ```
 ANTHROPIC_API_KEY=sk-ant-...
+OPENROUTER_API_KEY=sk-or-...
 ```
+
+`OPENROUTER_API_KEY` yalnızca OpenRouter modelleri kullanılacaksa gereklidir.
 
 ## Çalıştırma
 
@@ -75,6 +91,19 @@ code-review-agent/
 │   └── user_profile.json   # Oturumlar arası kalıcı kullanıcı profili
 └── tests/
 ```
+
+## Desteklenen Modeller
+
+| Model | Sağlayıcı |
+|-------|-----------|
+| Claude Sonnet 4.6 | Anthropic |
+| Claude Sonnet 4.5 | Anthropic |
+| Claude Haiku 4.5 | Anthropic |
+| NVIDIA Nemotron Super (Free) | OpenRouter |
+| GPT-OSS 120B (Free) | OpenRouter |
+| Gemma 4 31B (Free) | OpenRouter |
+| Llama 3.3 70B (Free) | OpenRouter |
+| OpenRouter Free (Auto) | OpenRouter |
 
 ## Kullanılan Teknolojiler
 
